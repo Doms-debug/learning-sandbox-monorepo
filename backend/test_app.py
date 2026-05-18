@@ -1,6 +1,6 @@
 import json
 from unittest.mock import Mock
-from app import update_counter
+from main import update_counter
 
 def test_update_counter_returns_valid_response():
     # Arrange 
