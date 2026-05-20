@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // there will be API Gateway in the future
-    const apiUrl = "http://localhost:8080/counter"; 
+    const apiUrl = "https://visitor-counter-api-svggecamha-lm.a.run.app"; 
 
     fetch(apiUrl)
         .then(response => response.json())

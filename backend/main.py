@@ -1,11 +1,12 @@
 import json
 import functions_framework
+from google.cloud import firestore
+
+db = None
 
 @functions_framework.http
 def update_counter(request):
-    """
-    Main GCP connector. Firestore to be added later on
-    """
+    global db
     # CORS (Preflight request)
     if request.method == 'OPTIONS':
         headers = {
@@ -15,14 +16,28 @@ def update_counter(request):
             'Access-Control-Max-Age': '3600'
         }
         return ('', 204, headers)
-
-    # standard headers
+    
     headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
     }
-    
-    # hardcoded values for now
-    simulated_visit_count = 23
 
-    return (json.dumps({"visits": simulated_visit_count}), 200, headers)
+    try:
+        if db is None:
+            db = firestore.Client(database="(default)")
+
+        doc_ref = db.collection('stats').document('visitors')
+        doc = doc_ref.get()
+
+        if doc.exists:
+            count = doc.to_dict().get('count', 0) + 1
+        else:
+            count = 1
+            
+        doc_ref.set({'count': count})
+
+        return (json.dumps({"visits": count}), 200, headers)
+    
+    except Exception as e:
+        print(f"Database error: {e}")
+        return (json.dumps({"error": "Internal server error"}), 500, headers)
