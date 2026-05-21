@@ -13,3 +13,9 @@ output "api_url" {
   description = "Public URL for API (Cloud Functions V2)"
   value       = google_cloudfunctions2_function.api_function.service_config[0].uri
 }
+
+
+output "website_url" {
+  description = "Public www site addresss"
+  value       = "https://storage.googleapis.com/${google_storage_bucket.website_bucket.name}/index.html"
+}
