@@ -115,3 +115,41 @@ resource "google_cloud_run_service_iam_member" "invoker" {
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
+
+
+
+resource "google_storage_bucket" "website_bucket" {
+  name          = "${var.project_id}-frontend-cv"
+  location      = var.region
+  force_destroy = true 
+  
+  uniform_bucket_level_access = true
+
+  website {
+    main_page_suffix = "index.html"
+    not_found_page   = "index.html"
+  }
+}
+
+resource "google_storage_bucket_iam_member" "public_read_website" {
+  bucket = google_storage_bucket.website_bucket.name
+  role   = "roles/storage.objectViewer"
+  member = "allUsers"
+}
+
+
+resource "google_storage_bucket_object" "frontend_files" {
+  for_each = fileset("${path.module}/../frontend", "*")
+
+  name   = each.value
+  bucket = google_storage_bucket.website_bucket.name
+  source = "${path.module}/../frontend/${each.value}"
+
+  content_type = lookup({
+    "html" = "text/html",
+    "css"  = "text/css",
+    "js"   = "application/javascript"
+  }, split(".", each.value)[length(split(".", each.value)) - 1], "application/octet-stream")
+}
+
+
