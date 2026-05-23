@@ -218,3 +218,12 @@ resource "google_service_account_iam_member" "workload_identity_user" {
   role               = "roles/iam.workloadIdentityUser"
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository/Doms-debug/learning-sandbox-monorepo"
 }
+
+
+resource "google_project_iam_member" "github_sa_owner" {
+  project = var.project_id
+  role    = "roles/owner"
+  member  = "serviceAccount:${google_service_account.github_actions_sa.email}"
+
+  depends_on = [google_project_service.cloudresourcemanager_api]
+}
