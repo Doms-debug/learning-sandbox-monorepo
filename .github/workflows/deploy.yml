@@ -61,3 +61,6 @@ jobs:
       - name: Terraform Apply
         working-directory: ./terraform
         run: terraform apply -auto-approve
+        env:
+         TF_VAR_project_id: "prj-cloud-sandbox-repo"
+         TF_VAR_region: "europe-central2"
