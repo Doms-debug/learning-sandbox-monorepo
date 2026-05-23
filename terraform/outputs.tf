@@ -19,3 +19,14 @@ output "website_url" {
   description = "Public www site addresss"
   value       = "https://storage.googleapis.com/${google_storage_bucket.website_bucket.name}/index.html"
 }
+
+
+output "workload_identity_provider_name" {
+  description = "Nazwa WIF Providera do wklejenia w GitHub Actions"
+  value       = google_iam_workload_identity_pool_provider.github_provider.name
+}
+
+output "github_service_account_email" {
+  description = "Email konta serwisowego dla GitHuba"
+  value       = google_service_account.github_actions_sa.email
+}
