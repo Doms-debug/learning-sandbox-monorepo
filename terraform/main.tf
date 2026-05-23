@@ -1,3 +1,11 @@
+terraform {
+  backend "gcs" {
+    bucket = "prj-cloud-sandbox-repo-tfstate"
+    prefix = "terraform/state"
+  }
+}
+
+
 resource "google_project_service" "firestore_api" {
   project            = var.project_id
   service            = "firestore.googleapis.com"
@@ -121,8 +129,8 @@ resource "google_cloud_run_service_iam_member" "invoker" {
 resource "google_storage_bucket" "website_bucket" {
   name          = "${var.project_id}-frontend-cv"
   location      = var.region
-  force_destroy = true 
-  
+  force_destroy = true
+
   uniform_bucket_level_access = true
 
   website {
@@ -153,3 +161,60 @@ resource "google_storage_bucket_object" "frontend_files" {
 }
 
 
+resource "google_project_service" "iamcredentials_api" {
+  project            = var.project_id
+  service            = "iamcredentials.googleapis.com"
+  disable_on_destroy = false
+}
+
+resource "google_project_service" "sts_api" {
+  project            = var.project_id
+  service            = "sts.googleapis.com"
+  disable_on_destroy = false
+}
+
+resource "google_iam_workload_identity_pool" "github_pool" {
+  project                   = var.project_id
+  workload_identity_pool_id = "github-actions-pool"
+  display_name              = "GitHub Actions Pool"
+  description               = "Identity pool for automated deployments"
+
+  depends_on = [google_project_service.iamcredentials_api]
+}
+
+resource "google_iam_workload_identity_pool_provider" "github_provider" {
+  project                            = var.project_id
+  workload_identity_pool_id          = google_iam_workload_identity_pool.github_pool.workload_identity_pool_id
+  workload_identity_pool_provider_id = "github-provider"
+  display_name                       = "GitHub Provider"
+
+  attribute_mapping = {
+    "google.subject"             = "assertion.sub"
+    "attribute.actor"            = "assertion.actor"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.repository_owner" = "assertion.repository_owner"
+  }
+
+  attribute_condition = "assertion.repository == \"Doms-debug/learning-sandbox-monorepo\""
+
+  oidc {
+    issuer_uri = "https://token.actions.githubusercontent.com"
+  }
+}
+
+resource "google_service_account" "github_actions_sa" {
+  account_id   = "github-actions-deployer"
+  display_name = "GitHub Actions Deployer SA"
+}
+
+resource "google_project_iam_member" "github_sa_owner" {
+  project = var.project_id
+  role    = "roles/owner"
+  member  = "serviceAccount:${google_service_account.github_actions_sa.email}"
+}
+
+resource "google_service_account_iam_member" "workload_identity_user" {
+  service_account_id = google_service_account.github_actions_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository/Doms-debug/learning-sandbox-monorepo"
+}
