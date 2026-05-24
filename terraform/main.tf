@@ -5,7 +5,7 @@ terraform {
   }
 }
 
-
+# APIs
 resource "google_project_service" "firestore_api" {
   project            = var.project_id
   service            = "firestore.googleapis.com"
@@ -40,6 +40,13 @@ resource "google_project_service" "artifactregistry_api" {
 resource "google_project_service" "cloudfunctions_api" {
   project            = var.project_id
   service            = "cloudfunctions.googleapis.com"
+  disable_on_destroy = false
+}
+
+
+resource "google_project_service" "cloudresourcemanager_api" {
+  project            = var.project_id
+  service            = "cloudresourcemanager.googleapis.com"
   disable_on_destroy = false
 }
 
