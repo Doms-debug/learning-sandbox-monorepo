@@ -207,11 +207,6 @@ resource "google_service_account" "github_actions_sa" {
   display_name = "GitHub Actions Deployer SA"
 }
 
-resource "google_project_iam_member" "github_sa_owner" {
-  project = var.project_id
-  role    = "roles/owner"
-  member  = "serviceAccount:${google_service_account.github_actions_sa.email}"
-}
 
 resource "google_service_account_iam_member" "workload_identity_user" {
   service_account_id = google_service_account.github_actions_sa.name
