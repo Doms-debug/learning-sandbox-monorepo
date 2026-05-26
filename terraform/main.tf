@@ -51,6 +51,14 @@ resource "google_project_service" "cloudresourcemanager_api" {
 }
 
 
+resource "google_project_service" "compute_api" {
+  project            = var.project_id
+  service            = "compute.googleapis.com"
+  disable_on_destroy = false
+}
+
+
+# Buckets
 resource "google_storage_bucket" "function_bucket" {
   name          = "${var.project_id}-cloud-functions-source"
   location      = var.region

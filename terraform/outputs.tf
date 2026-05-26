@@ -22,11 +22,16 @@ output "website_url" {
 
 
 output "workload_identity_provider_name" {
-  description = "Nazwa WIF Providera do wklejenia w GitHub Actions"
+  description = "WIF provider name"
   value       = google_iam_workload_identity_pool_provider.github_provider.name
 }
 
 output "github_service_account_email" {
-  description = "Email konta serwisowego dla GitHuba"
+  description = "Email to service account"
   value       = google_service_account.github_actions_sa.email
+}
+
+output "load_balancer_ip" {
+  description = "Global IP address to Load Balancer"
+  value       = google_compute_global_address.website_ip.address
 }
