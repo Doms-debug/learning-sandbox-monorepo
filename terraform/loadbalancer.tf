@@ -9,13 +9,15 @@ resource "google_compute_backend_bucket" "static_frontend" {
   description = "Contains static HTML/CSS/JS files"
   bucket_name = google_storage_bucket.website_bucket.name
   enable_cdn  = true
+
+  depends_on = [google_project_service.compute_api]
 }
 
 resource "google_compute_region_network_endpoint_group" "backend_neg" {
   name                  = "backend-serverless-neg"
   network_endpoint_type = "SERVERLESS"
   region                = var.region
-  
+
   cloud_run {
     service = google_cloudfunctions2_function.api_function.name
   }
@@ -27,7 +29,7 @@ resource "google_compute_backend_service" "backend_api" {
   protocol              = "HTTP"
   port_name             = "http"
   load_balancing_scheme = "EXTERNAL"
-  
+
   backend {
     group = google_compute_region_network_endpoint_group.backend_neg.id
   }
