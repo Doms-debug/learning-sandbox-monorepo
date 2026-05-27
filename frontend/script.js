@@ -1,11 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // there will be API Gateway in the future
-    const apiUrl = "https://visitor-counter-api-svggecamha-lm.a.run.app"; 
+
+    const counterElement = document.getElementById("counter");
+
+    const apiUrl = "/api"; 
 
     fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("counter").innerText = data.visits;
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
         })
-        .catch(error => console.error("Error while downloading data:", error));
+        .then(data => {
+            counterElement.innerText = `Visitors counter: ${data.views}`;
+        })
+        .catch(error => {
+            console.error("Counter fetch error:", error);
+            counterElement.innerText = "Counter server error";
+        });
 });
