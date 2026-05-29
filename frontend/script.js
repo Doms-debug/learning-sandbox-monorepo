@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
         .then(data => {
-            counterElement.innerText = `Visitors counter: ${data.visits}`;
+            counterElement.innerText = data.visits;
         })
         .catch(error => {
             console.error("Counter fetch error:", error);
