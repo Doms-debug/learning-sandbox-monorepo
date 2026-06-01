@@ -1,13 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My cloud CV</title>
+    <title>Dominik Czajka | Cloud Engineer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="script.js?v=3" defer></script>
 </head>
+
 <body>
-    <h1>Welcome to my cloud portfolio!</h1>
-    <p>This page was visited <span id="counter">loading...</span> times.</p>
-    <script src="script.js?v=3"></script>
+    <div class="container">
+        <header class="hero">
+            <div class="hero-text">
+                <h1>Dominik Czajka</h1>
+                <h2>Cloud Engineer @ Devoteam</h2>
+                <p class="location">📍 Warsaw, Poland</p>
+                <p class="bio">
+                    IT Engineer specializing in Artificial Intelligence. Passionate about Cloud Computing,
+                    Infrastructure as Code (IaC), and Cloud-Native solutions.
+                </p>
+            </div>
+        </header>
+
+        <section class="section">
+            <h3 class="section-title">Experience</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Cloud Engineer</h4>
+                    <p class="timeline-company">Devoteam | April 2025 - Present</p>
+                    <p>Designing, implementing, and managing Google Cloud Platform infrastructure. Utilizing Terraform
+                        for IaC, Kubernetes for container orchestration, and GitHub Actions for CI/CD pipelines to
+                        ensure scalable and reliable cloud environments.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">Education</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>B.Sc. in Informatics</h4>
+                    <p class="timeline-company">Specialization: Artificial Intelligence</p>
+                    <p>Developed an engineering thesis focused on fake news detection using machine learning models
+                        (DistilBERT, XGBoost) and the ISOT dataset.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">Certifications</h3>
+            <div class="grid-container certs">
+                <div class="card">
+                    <h4>Google Cloud Professional Cloud Architect</h4>
+                    <p>Proven ability to design, build, and manage scalable and secure cloud architectures on GCP.</p>
+                </div>
+                <div class="card">
+                    <h4>Google Cloud Associate Cloud Engineer</h4>
+                    <p>Hands-on proficiency in deploying applications, monitoring operations, and managing enterprise
+                        solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">Tech Stack</h3>
+            <div class="skills-container">
+                <span class="skill-tag">Google Cloud Platform</span>
+                <span class="skill-tag">Terraform</span>
+                <span class="skill-tag">Kubernetes</span>
+                <span class="skill-tag">GitHub Actions</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Docker</span>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">Featured Projects</h3>
+            <div class="grid-container projects">
+                <div class="card">
+                    <h4>Cloud Resume Challenge</h4>
+                    <p>Fully automated GCP infrastructure. Serverless backend (Cloud Functions, Firestore), static
+                        frontend (Cloud Storage) behind a Global HTTP Load Balancer. Provisioned via Terraform and CI/CD
+                        pipelines utilizing Workload Identity Federation.</p>
+                </div>
+                <div class="card">
+                    <h4>Home Lab & Networking</h4>
+                    <p>Designed and optimized a multi-gigabit home network infrastructure utilizing fiber ONT, custom
+                        switches, and access points for seamless Wi-Fi coverage and reliable hardwired connections.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3 class="section-title">After Hours</h3>
+            <p class="hobbies">
+                When I'm not configuring cloud resources, you can find me maintaining a structured bouldering and
+                climbing routine.
+                I actively manage a diversified investment portfolio focusing on Global ETFs and the GPW.
+                I also enjoy unwinding with narrative-driven action-adventure games on Xbox, planning international
+                travel like exploring the Philippines, and hitting the ski slopes in Austria or Italy.
+            </p>
+        </section>
+
+        <footer>
+            <div class="counter-box">
+                <p>This page is hosted on Google Cloud.</p>
+                <div class="counter-value">
+                    Visitor count: <span id="counter">loading...</span>
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
+
 </html>
