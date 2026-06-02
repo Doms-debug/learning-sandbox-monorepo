@@ -1,6 +1,6 @@
 # 🚀 Cloud-to-Code: My Platform Engineering Sandbox
 
-Welcome to my daily learning monorepo. I am a Cloud Engineer transitioning into modern **Platform Engineering and Software Development**. 
+Welcome to my daily learning monorepo. I am a Cloud Engineer exploring **Platform Engineering and Software Development**. 
 
 This repository serves as my daily scratchpad, proof-of-concept (PoC) storage, and muscle-memory gym for **Kubernetes, Python, Go, GCP and Infrastructure as Code**.
 
