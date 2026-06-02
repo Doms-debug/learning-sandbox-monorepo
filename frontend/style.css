@@ -1,12 +1,10 @@
-/* Zmienne kolorystyczne - Ciemny motyw */
 :root {
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --text-main: #e0e0e0;
-    --text-muted: #a0a0a0;
+    --bg-color: #0d1117;
+    --card-bg: rgba(30, 33, 40, 0.6); 
+    --text-main: #c9d1d9;
+    --text-muted: #8b949e;
     --accent-color: #4285F4;
-    /* Google Cloud Blue */
-    --accent-hover: #3b78e7;
+    --gradient-google: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
 }
 
 * {
@@ -87,16 +85,23 @@ body {
     }
 }
 
+
+
 .card {
     background-color: var(--card-bg);
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05); 
     padding: 25px;
-    border-radius: 8px;
+    border-radius: 12px;
     border-left: 4px solid var(--accent-color);
-    transition: transform 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 30px -10px rgba(66, 133, 244, 0.4);
+    border-left: 4px solid #34A853; 
 }
 
 .card h4 {
@@ -120,11 +125,19 @@ body {
 .skill-tag {
     background-color: rgba(66, 133, 244, 0.1);
     color: var(--accent-color);
-    border: 1px solid var(--accent-color);
+    border: 1px solid rgba(66, 133, 244, 0.3);
     padding: 8px 15px;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.skill-tag:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(66, 133, 244, 0.4);
 }
 
 /* Footer & Counter */
@@ -155,7 +168,6 @@ footer {
     color: var(--accent-color);
 }
 
-/* Timeline dla sekcji Experience i Education */
 .timeline {
     border-left: 2px solid var(--card-bg);
     padding-left: 20px;
@@ -189,4 +201,39 @@ footer {
     font-size: 0.95rem;
     font-weight: 600;
     margin-bottom: 10px;
+}
+
+.gradient-text {
+    background: var(--gradient-google);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.social-links {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-btn {
+    text-decoration: none;
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-btn:hover {
+    background: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.5);
 }
