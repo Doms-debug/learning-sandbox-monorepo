@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const counterElement = document.getElementById("counter");
 
-    const apiUrl = "/api"; 
+    const apiUrl = "https://europe-central2-prj-cloud-sandbox-repo.cloudfunctions.net/visitor-counter-api"; 
 
     fetch(apiUrl)
         .then(response => {
