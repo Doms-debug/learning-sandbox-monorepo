@@ -30,8 +30,3 @@ output "github_service_account_email" {
   description = "Email to service account"
   value       = google_service_account.github_actions_sa.email
 }
-
-output "load_balancer_ip" {
-  description = "Global IP address to Load Balancer"
-  value       = google_compute_global_address.website_ip.address
-}
